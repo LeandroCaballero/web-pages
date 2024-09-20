@@ -4,7 +4,7 @@ import ScheduleList from "./ScheduleList";
 
 const MovieDetail = () => {
   return (
-    <div className="bg-[#111111] grid grid-cols-2 p-3 gap-x-4">
+    <div className="bg-[#b43234] grid grid-cols-2 p-3 gap-x-4">
       <div className="flex gap-x-3">
         <div className="w-4/12">
           <img

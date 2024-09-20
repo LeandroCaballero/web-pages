@@ -9,7 +9,7 @@ const ScheduleList = () => {
       </div>
       <div className="space-y-1 mt-1">
         {schedule.map((schedule) => (
-          <div className="bg-black text-white p-3 space-y-3">
+          <div className="bg-[#9f171a] text-white p-3 space-y-3">
             <div className="flex items-center gap-x-1">
               <p className="font-extrabold text-lg">{schedule.type}</p>
               <p className="uppercase text-xs">{schedule.language}</p>

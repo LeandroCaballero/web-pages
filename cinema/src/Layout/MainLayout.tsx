@@ -5,7 +5,7 @@ interface Props {
 const MainLayout = ({ children }: Props) => {
   return (
     <>
-      <nav className="grid grid-cols-7 bg-black px-20 py-3 text-white fixed top-0 z-50">
+      <nav className="w-full px-20 grid grid-cols-7 bg-black py-3 text-white fixed top-0 z-50">
         <a href="/" className="col-span-1 flex items-center">
           <img
             src={"https://www.cinemarkhoyts.com.ar/images/res/logo.png?v=2"}
