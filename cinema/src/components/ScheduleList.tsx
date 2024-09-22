@@ -1,4 +1,3 @@
-import React from "react";
 import { schedule } from "../utils/data";
 
 const ScheduleList = () => {

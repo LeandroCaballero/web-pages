@@ -1,4 +1,3 @@
-import React from "react";
 import PlayIcon from "../assets/play.png";
 import ScheduleList from "./ScheduleList";
 
