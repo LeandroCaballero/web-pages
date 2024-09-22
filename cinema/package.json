@@ -3,7 +3,7 @@
   "private": true,
   "version": "0.0.0",
   "type": "module",
-  "homepage": "https://leandrocaballero.github.io/WebPages/",
+  "homepage": "https://leandrocaballero.github.io/web-pages/",
   "scripts": {
     "dev": "vite",
     "build": "tsc -b && vite build",
