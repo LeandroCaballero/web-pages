@@ -3,7 +3,7 @@ const Select = () => {
     <select
       name=""
       id=""
-      className="w-72 h-10 px-2 outline-none bg-transparent border text-white border-white rounded-lg uppercase
+      className="w-72 mb-5 h-10 px-2 outline-none bg-transparent border text-white border-white rounded-lg uppercase
       font-extrabold"
     >
       <option className="bg-gray-500 border border-white" value="">

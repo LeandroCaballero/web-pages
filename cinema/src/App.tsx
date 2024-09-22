@@ -5,15 +5,26 @@ import { movies } from "./utils/data";
 import MainLayout from "./Layout/MainLayout";
 import Select from "./components/Select.";
 import MovieDetail from "./components/MovieDetail";
+import { modalStore } from "./state/ModalState";
+import ModalTrailer from "./components/ModalTrailer";
+import { movieDetailStore } from "./state/MovieDetail";
 
 export default () => {
+  const { isOpen } = modalStore();
+  const { changeShowDetails, setMovieDetails } = movieDetailStore();
+
+  const selectMovie = (movie: any) => {
+    setMovieDetails(movie);
+    changeShowDetails(true);
+  };
+
   return (
     <MainLayout>
       <div className="bg-red-500 min-h-screen">
         <div className="w-11/12 mx-auto pt-5">
           <Select />
-          <h1 className="text-white text-3xl py-5">ESTRENOS</h1>
           <MovieDetail />
+          <h1 className="text-white text-3xl py-5">ESTRENOS</h1>
           <Swiper
             spaceBetween={7}
             slidesPerView={6}
@@ -22,7 +33,11 @@ export default () => {
             className="mt-1"
           >
             {movies.map((movie) => (
-              <SwiperSlide className="max-h-[400px]">
+              <SwiperSlide
+                className="max-h-[400px] cursor-pointer"
+                onClick={() => selectMovie(movie)}
+                key={movie.title}
+              >
                 <img className="w-full" src={movie.img} alt="" />
                 <div className="text-center uppercase text-sm space-y-1 py-2">
                   <p className="text-white">{movie.title}</p>
@@ -33,6 +48,7 @@ export default () => {
           </Swiper>
         </div>
       </div>
+      {isOpen && <ModalTrailer />}
     </MainLayout>
   );
 };

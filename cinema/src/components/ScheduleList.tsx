@@ -2,9 +2,9 @@ import { schedule } from "../utils/data";
 
 const ScheduleList = () => {
   return (
-    <div className="px-2">
-      <div className="bg-[#434343] p-2">
-        <p className="text-white font-extrabold">HORARIOS PARA CINE TAL</p>
+    <div className="px-2 h-[450px] overflow-y-scroll">
+      <div className="bg-[#434343] p-2 rounded-t-md">
+        <p className="text-white font-extrabold ">HORARIOS PARA CINE TAL</p>
       </div>
       <div className="space-y-1 mt-1">
         {schedule.map((schedule) => (

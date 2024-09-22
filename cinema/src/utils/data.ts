@@ -36,11 +36,37 @@ export const movies = [
   },
 ];
 
-export const schedule = [
+export interface Schedule {
+  type: string;
+  language: string;
+  hours: string[];
+}
+
+export const schedule: Schedule[] = [
   {
     type: "2D",
     language: "Subtitulada",
     hours: ["13:30", "14:00"],
+  },
+  {
+    type: "2D",
+    language: "Castellano",
+    hours: ["13:30", "19:00", "20:00"],
+  },
+  {
+    type: "2D",
+    language: "Castellano",
+    hours: ["13:30", "19:00", "20:00"],
+  },
+  {
+    type: "2D",
+    language: "Castellano",
+    hours: ["13:30", "19:00", "20:00"],
+  },
+  {
+    type: "2D",
+    language: "Castellano",
+    hours: ["13:30", "19:00", "20:00"],
   },
   {
     type: "2D",

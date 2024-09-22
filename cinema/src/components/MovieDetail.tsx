@@ -1,13 +1,20 @@
 import PlayIcon from "../assets/play.png";
 import ScheduleList from "./ScheduleList";
+import { modalStore } from "../state/ModalState";
+import { movieDetailStore } from "../state/MovieDetail";
 
 const MovieDetail = () => {
+  const { changeIsOpenModal } = modalStore();
+  const { movieDetails, showDetails } = movieDetailStore();
+
+  if (!showDetails) return null;
+
   return (
-    <div className="bg-[#b43234] grid grid-cols-2 p-3 gap-x-4">
+    <div className={`bg-[#b43234] grid grid-cols-2 p-3 gap-x-4 rounded-md`}>
       <div className="flex gap-x-3">
         <div className="w-4/12">
           <img
-            className="w-full"
+            className="w-full rounded-md"
             src={
               "https://static.cinemarkhoyts.com.ar/Images/Posters/e642bb8ced7fc6c6a6d4a7c861fc69da.jpg?v=00002414"
             }
@@ -30,7 +37,10 @@ const MovieDetail = () => {
           </div>
         </div>
         <div className="w-8/12 text-white">
-          <div className="relative">
+          <div
+            className="relative cursor-pointer rounded-md overflow-hidden"
+            onClick={() => changeIsOpenModal(true)}
+          >
             <img src={"https://i.ytimg.com/vi/7jS0THWG35M/hq720.jpg"} alt="" />
             <img
               className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2"
@@ -46,9 +56,8 @@ const MovieDetail = () => {
           </p>
         </div>
       </div>
-      <div className="">
-        <ScheduleList />
-      </div>
+
+      <ScheduleList />
     </div>
   );
 };
