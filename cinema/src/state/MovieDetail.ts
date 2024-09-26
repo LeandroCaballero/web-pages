@@ -18,7 +18,7 @@ type MovieDetails = {
 interface ModalState {
   showDetails: boolean;
   movieDetails: MovieDetails;
-  changeShowDetails: (open: boolean) => void;
+  changeIsOpenShowDetails: (open: boolean) => void;
   setMovieDetails: (movieDetails: MovieDetails) => void;
 }
 
@@ -37,6 +37,6 @@ export const movieDetailStore = create<ModalState>()((set) => ({
     schedule: [],
     hours: [],
   },
-  changeShowDetails: (open) => set({ showDetails: open }),
+  changeIsOpenShowDetails: (open) => set({ showDetails: open }),
   setMovieDetails: (movieDetails: MovieDetails) => set({ movieDetails }),
 }));

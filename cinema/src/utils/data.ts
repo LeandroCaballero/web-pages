@@ -74,3 +74,14 @@ export const schedule: Schedule[] = [
     hours: ["13:30", "19:00", "20:00"],
   },
 ];
+
+export const optionsSelectProvince = [
+  {
+    text: "Corrientes",
+    value: "Corrientes",
+  },
+  {
+    text: "Chaco",
+    value: "Chaco",
+  },
+];
