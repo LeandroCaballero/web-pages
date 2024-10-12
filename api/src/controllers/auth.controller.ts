@@ -1,4 +1,4 @@
-import { Request, Response } from "express";
+import { Express, Request, Response } from "express";
 import prisma from "../server/prisma";
 import crypto from "crypto";
 import bcrypt from "bcrypt";
@@ -94,38 +94,38 @@ export const register = async (req: Request, res: Response) => {
   }
 };
 
-export const confirmEmail = async (req: Request, res: Response) => {
-  const { id, token } = req.params;
+// export const confirmEmail = async (req: Request, res: Response) => {
+//   const { id, token } = req.params;
 
-  const checkInfoUser = await prisma.user.findFirst({
-    where: {
-      id: id,
-      tokenEmail: token,
-    },
-  });
+//   const checkInfoUser = await prisma.user.findFirst({
+//     where: {
+//       id: id,
+//       tokenEmail: token,
+//     },
+//   });
 
-  //Verify if data is correct and confirmEmail == true
-  if (!checkInfoUser || checkInfoUser.confirmed) {
-    return res.status(409).render("confirmEmailError", {
-      error: "Usuario inexistente o token inválido",
-    });
-  }
+//   //Verify if data is correct and confirmEmail == true
+//   if (!checkInfoUser || checkInfoUser.confirmed) {
+//     return res.status(409).render("confirmEmailError", {
+//       error: "Usuario inexistente o token inválido",
+//     });
+//   }
 
-  try {
-    await prisma.user.update({
-      where: {
-        id: checkInfoUser.id,
-      },
-      data: {
-        confirmed: true,
-      },
-    });
+//   try {
+//     await prisma.user.update({
+//       where: {
+//         id: checkInfoUser.id,
+//       },
+//       data: {
+//         confirmed: true,
+//       },
+//     });
 
-    return res
-      .status(409)
-      .render("confirmEmailSuccess", { name: checkInfoUser.name });
-  } catch (error) {
-    console.log("Error confirmEmail", error);
-    res.status(500).json({ message: "Error en el servidor" });
-  }
-};
+//     return res
+//       .status(409)
+//       .render("confirmEmailSuccess", { name: checkInfoUser.name });
+//   } catch (error) {
+//     console.log("Error confirmEmail", error);
+//     res.status(500).json({ message: "Error en el servidor" });
+//   }
+// };
