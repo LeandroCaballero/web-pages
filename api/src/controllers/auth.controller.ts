@@ -70,7 +70,7 @@ export const register = async (req: Request, res: Response) => {
         name,
         email,
         password: encryptedPassword,
-        tokenEmail: token,
+        // tokenEmail: token,
       },
     });
 
