@@ -3,11 +3,21 @@ import prisma from "../server/prisma";
 import crypto from "crypto";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
+import { userSchema } from "../schemas/User";
 // import { Resend } from "resend";
 
 export const login = async (req: Request, res: Response) => {
-  const { email, password } = req.body;
   try {
+    const result = userSchema.safeParse(req.body);
+
+    if (!result.success) {
+      return res.status(400).json({
+        error: "Invalid input",
+        details: result.error.errors,
+      });
+    }
+    const { email, password } = result.data;
+
     const existUser = await prisma.user.findFirst({
       where: {
         email,
