@@ -5,12 +5,14 @@ import { movieDetailStore } from "../state/MovieDetail";
 
 const MovieDetail = () => {
   const { changeIsOpenModal } = modalStore();
-  const { movieDetails, showDetails } = movieDetailStore();
-
-  if (!showDetails) return null;
+  const { showDetails } = movieDetailStore();
 
   return (
-    <div className={`bg-[#b43234] grid grid-cols-2 p-3 gap-x-4 rounded-md`}>
+    <div
+      className={`transition-all duration-500 overflow-hidden ${
+        showDetails ? "max-h-screen p-3" : "p-0 max-h-0"
+      } bg-[#b43234] grid grid-cols-2 gap-x-4 rounded-md mt-5`}
+    >
       <div className="flex gap-x-3">
         <div className="w-4/12">
           <img
@@ -20,19 +22,23 @@ const MovieDetail = () => {
             }
             alt=""
           />
-          <p className="text-white px-1 w-fit my-2 border">AC</p>
+          <p className="text-white font-normal tracking-widest px-1 w-fit my-2 border">
+            AC
+          </p>
           <div className="text-sm">
-            <p className="text-gray-500">
-              Género: <span className="text-white">Drama</span>
+            <p className="text-cream font-light">
+              GÉNERO: <span className="text-white font-normal">Drama</span>
             </p>
-            <p className="text-gray-500">
-              Duración: <span className="text-white">138min</span>
+            <p className="text-cream font-light">
+              DURACIÓN: <span className="text-white font-normal">138min</span>
             </p>
-            <p className="text-gray-500">
-              Actores: <span className="text-white">Joaquin Phoenix</span>
+            <p className="text-cream font-light">
+              ACTORES:{" "}
+              <span className="text-white font-normal">Joaquin Phoenix</span>
             </p>
-            <p className="text-gray-500">
-              Director: <span className="text-white">Todd Phillips</span>
+            <p className="text-cream font-light">
+              DIRECTOR:{" "}
+              <span className="text-white font-normal">Todd Phillips</span>
             </p>
           </div>
         </div>
@@ -48,8 +54,8 @@ const MovieDetail = () => {
               alt=""
             />
           </div>
-          <p className="text-lg font-extrabold my-1">GUASON 2 FOLIE A DEUX</p>
-          <p className="text-xs mt-3">
+          <p className="text-lg font-bold my-1">GUASON 2 FOLIE A DEUX</p>
+          <p className="text-xs mt-3 text-[#febbbb] font-light italic">
             Secuela de Guasón (2019), de nuevo con Phoenix como Arthur Fleck, y
             que muestra su relación con el personaje de Harley Quinn,
             interpretado por Lady Gaga.
