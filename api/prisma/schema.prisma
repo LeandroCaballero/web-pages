@@ -42,11 +42,11 @@ model Movie {
 }
 
 model Schedule {
-  id        String   @id @default(cuid())
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  id        String     @id @default(cuid())
+  createdAt DateTime   @default(now())
+  updatedAt DateTime   @updatedAt
   type      String
-  hours     DateTime
+  hours     DateTime[]
 
   movie   Movie?  @relation(fields: [movieId], references: [id])
   movieId String?
@@ -60,10 +60,10 @@ model Cinema {
   location  String
 
   movies Movie[]
-  cities Cities[]
+  cities City[]
 }
 
-model Cities {
+model City {
   id        String   @id @default(cuid())
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt

@@ -1,7 +1,13 @@
 import { z } from "zod";
 
-export const scheduleSchema = z.object({
+export const createScheduleSchema = z.object({
   type: z.string().min(1),
-  hours: z.date(),
-  movieId: z.string(),
+  hours: z.array(z.date()),
+  movieId: z.string().min(1),
+});
+
+export const editScheduleSchema = z.object({
+  type: z.string().optional(),
+  hours: z.array(z.date()).optional(),
+  movieId: z.string().optional(),
 });

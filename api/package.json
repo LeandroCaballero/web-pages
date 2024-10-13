@@ -1,5 +1,5 @@
 {
-  "name": "WebPages",
+  "name": "web-pages",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -8,7 +8,8 @@
     "dev": "tsx watch index.ts",
     "postinstall": "prisma generate",
     "build": "tsc",
-    "start": "node dist/index.js"
+    "start": "node dist/index.js",
+    "gen": "prisma generate"
   },
   "keywords": [],
   "author": "",

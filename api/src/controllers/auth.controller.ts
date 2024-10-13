@@ -25,7 +25,7 @@ export const login = async (req: Request, res: Response) => {
     });
 
     if (!existUser) {
-      return res.status(400).json({ error: "No se encontro la cuenta" });
+      return res.status(400).json({ message: "No se encontro la cuenta" });
     }
 
     if (await bcrypt.compare(password, existUser.password)) {

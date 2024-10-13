@@ -1,9 +1,9 @@
 import { Request, Response } from "express";
 import prisma from "../server/prisma";
-import { movieSchema } from "../schemas/movie";
+import { createMovieSchema, editMovieSchema } from "../schemas/Movie";
 
 export const create = async (req: Request, res: Response) => {
-  const result = movieSchema.safeParse(req.body);
+  const result = createMovieSchema.safeParse(req.body);
 
   if (!result.success) {
     return res.status(400).json({
@@ -12,36 +12,24 @@ export const create = async (req: Request, res: Response) => {
     });
   }
 
-  const {
-    name,
-    description,
-    actors,
-    cinemas,
-    director,
-    genre,
-    location,
-    duration,
-    image,
-    schedules,
-    videoImage,
-    videoUrl,
-  } = result.data;
-
+  const data = result.data;
   try {
     const newMovie = await prisma.movie.create({
       data: {
-        name,
-        description,
-        actors,
-        cinemas: { connect: cinemas.map((cinema) => ({ id: cinema })) },
-        director,
-        genre,
-        location,
-        duration,
-        image,
-        schedules: { connect: schedules.map((schedule) => ({ id: schedule })) },
-        videoImage,
-        videoUrl,
+        name: data.name,
+        description: data.description,
+        actors: data.actors,
+        director: data.director,
+        genre: data.genre,
+        location: data.location,
+        duration: data.duration,
+        image: data.image,
+        videoImage: data.videoImage,
+        videoUrl: data.videoUrl,
+        cinemas: { connect: data.cinemas.map((cinema) => ({ id: cinema })) },
+        schedules: {
+          connect: data.schedules.map((schedule) => ({ id: schedule })),
+        },
       },
     });
     if (newMovie) {
@@ -66,7 +54,7 @@ export const getOne = async (req: Request, res: Response) => {
       },
     });
     if (!movie) {
-      return res.status(404).json({ error: "No se encontro la peli" });
+      return res.status(404).json({ error: "No se encontro la pelicula" });
     }
     return res.status(200).json(movie);
   } catch (error) {
@@ -90,22 +78,49 @@ export const getAll = async (req: Request, res: Response) => {
 
 export const update = async (req: Request, res: Response) => {
   const { id } = req.params;
-  const result = movieSchema.safeParse(req.body);
+  const result = editMovieSchema.safeParse(req.body);
+
   if (!result.success) {
     return res.status(400).json({
       error: "Invalid input",
       details: result.error.errors,
     });
   }
+
+  const data = result.data;
+
   try {
     const movieUpdated = await prisma.movie.update({
       where: {
         id,
       },
-      data: result.data,
+      data: {
+        name: data.name,
+        description: data.description,
+        actors: data.actors,
+        director: data.director,
+        genre: data.genre,
+        location: data.location,
+        duration: data.duration,
+        image: data.image,
+        videoImage: data.videoImage,
+        videoUrl: data.videoUrl,
+        ...(result.data.cinemas && {
+          cinemas: {
+            connect: result.data.cinemas.map((cinema) => ({ id: cinema })),
+          },
+        }),
+        ...(result.data.schedules && {
+          schedules: {
+            connect: result.data.schedules.map((schedule) => ({
+              id: schedule,
+            })),
+          },
+        }),
+      },
     });
     if (movieUpdated) {
-      return res.status(200).json({ message: "Exit" });
+      return res.status(200).json({ message: "Exito al guardar" });
     }
   } catch (err) {
     console.error("Error executing query", err);
@@ -113,23 +128,17 @@ export const update = async (req: Request, res: Response) => {
   }
 };
 
-// export const deleteMember = async (req: Request, res: Response) => {
-//   const { idHouse, idMember } = req.body;
-//   try {
-//     const newMember = await prisma.house.update({
-//       where: {
-//         id: idHouse,
-//       },
-//       data: {
-//         members: { disconnect: { id: idMember } },
-//       },
-//     });
-
-//     if (newMember) {
-//       return res.status(200).json({ message: "Miembro eliminado" });
-//     }
-//   } catch (err) {
-//     console.error("Error executing query", err);
-//     return res.status(500).json({ error: "Internal server error" });
-//   }
-// };
+export const deleteMovie = async (req: Request, res: Response) => {
+  const { id } = req.params;
+  try {
+    await prisma.movie.delete({
+      where: {
+        id,
+      },
+    });
+    return res.status(200).json({ message: "Película eliminada" });
+  } catch (err) {
+    console.error("Error executing query", err);
+    return res.status(500).json({ error: "Internal server error" });
+  }
+};
