@@ -20,7 +20,11 @@ const Select = ({ title, options, onChange }: Props) => {
         {title}
       </option>
       {options.map((op) => (
-        <option className="bg-gray-500 border border-white" value={op.value}>
+        <option
+          key={op.value}
+          className="bg-gray-500 border border-white"
+          value={op.value}
+        >
           {op.text}
         </option>
       ))}

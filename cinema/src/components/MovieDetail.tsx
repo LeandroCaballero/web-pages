@@ -11,9 +11,9 @@ const MovieDetail = () => {
     <div
       className={`transition-all duration-500 overflow-hidden ${
         showDetails ? "max-h-screen p-3" : "p-0 max-h-0"
-      } bg-[#b43234] grid grid-cols-2 gap-x-4 rounded-md mt-5`}
+      } bg-[#b43234] grid grid-cols-2 gap-y-2 gap-x-4 rounded-md mt-5`}
     >
-      <div className="flex gap-x-3">
+      <div className="flex col-span-2 md:col-span-1 gap-x-3">
         <div className="w-4/12">
           <img
             className="w-full rounded-md"
@@ -63,7 +63,9 @@ const MovieDetail = () => {
         </div>
       </div>
 
-      <ScheduleList />
+      <div className="col-span-2 md:col-span-1">
+        <ScheduleList />
+      </div>
     </div>
   );
 };

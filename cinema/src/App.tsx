@@ -25,7 +25,7 @@ export default () => {
       <div className="bg-red-500 min-h-screen">
         <div className="w-11/12 mx-auto pt-5">
           <div className="flex justify-between items-center">
-            <div className="flex gap-x-3">
+            <div className="flex w-full flex-col items-center md:flex-row gap-3">
               <Select
                 title="Seleccioná una provincia"
                 options={optionsSelectProvince}
@@ -54,17 +54,26 @@ export default () => {
             EN CARTELERA
           </h1>
           <Swiper
-            spaceBetween={7}
-            slidesPerView={6}
-            onSlideChange={() => console.log("slide change")}
-            onSwiper={(swiper) => console.log(swiper)}
+            breakpoints={{
+              320: {
+                slidesPerView: 2,
+              },
+              768: {
+                slidesPerView: 3,
+                spaceBetween: 8,
+              },
+              1024: {
+                slidesPerView: 6,
+                spaceBetween: 7,
+              },
+            }}
             className="mt-1"
           >
-            {movies.map((movie) => (
+            {movies.map((movie, index) => (
               <SwiperSlide
                 className="max-h-[400px] cursor-pointer"
                 onClick={() => selectMovie(movie)}
-                key={movie.title}
+                key={`${movie.title}-${index}`}
               >
                 <img className="w-full" src={movie.img} alt="" />
                 <div className="text-center uppercase text-sm space-y-1 py-2">
