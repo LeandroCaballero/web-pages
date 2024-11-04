@@ -10,39 +10,11 @@ const MovieDetail = () => {
   return (
     <div
       className={`transition-all duration-500 overflow-hidden ${
-        showDetails ? "max-h-screen p-3" : "p-0 max-h-0"
-      } bg-[#b43234] grid grid-cols-2 gap-y-2 gap-x-4 rounded-md mt-5`}
+        showDetails ? "max-h-fit md:max-h-screen p-3" : "p-0 max-h-0"
+      } bg-[#b43234] grid grid-cols-5 gap-y-2 gap-x-5 rounded-md mt-5`}
     >
-      <div className="flex col-span-2 md:col-span-1 gap-x-3">
-        <div className="w-4/12">
-          <img
-            className="w-full rounded-md"
-            src={
-              "https://static.cinemarkhoyts.com.ar/Images/Posters/e642bb8ced7fc6c6a6d4a7c861fc69da.jpg?v=00002414"
-            }
-            alt=""
-          />
-          <p className="text-white font-normal tracking-widest px-1 w-fit my-2 border">
-            AC
-          </p>
-          <div className="text-sm">
-            <p className="text-cream font-light">
-              GÉNERO: <span className="text-white font-normal">Drama</span>
-            </p>
-            <p className="text-cream font-light">
-              DURACIÓN: <span className="text-white font-normal">138min</span>
-            </p>
-            <p className="text-cream font-light">
-              ACTORES:{" "}
-              <span className="text-white font-normal">Joaquin Phoenix</span>
-            </p>
-            <p className="text-cream font-light">
-              DIRECTOR:{" "}
-              <span className="text-white font-normal">Todd Phillips</span>
-            </p>
-          </div>
-        </div>
-        <div className="w-8/12 text-white">
+      <div className="col-span-5 md:col-span-2">
+        <div className="w-full text-white">
           <div
             className="relative cursor-pointer rounded-md overflow-hidden"
             onClick={() => changeIsOpenModal(true)}
@@ -62,9 +34,29 @@ const MovieDetail = () => {
           </p>
         </div>
       </div>
-
-      <div className="col-span-2 md:col-span-1">
+      <div className="col-span-5 md:col-span-2">
         <ScheduleList />
+      </div>
+      <div className="flex flex-col col-span-5 md:col-span-1 gap-x-3">
+        <p className="text-white font-normal tracking-widest px-1 w-fit my-2 border">
+          AC
+        </p>
+        <div className="text-sm">
+          <p className="text-cream font-light">
+            GÉNERO: <span className="text-white font-normal">Drama</span>
+          </p>
+          <p className="text-cream font-light">
+            DURACIÓN: <span className="text-white font-normal">138min</span>
+          </p>
+          <p className="text-cream font-light">
+            ACTORES:{" "}
+            <span className="text-white font-normal">Joaquin Phoenix</span>
+          </p>
+          <p className="text-cream font-light">
+            DIRECTOR:{" "}
+            <span className="text-white font-normal">Todd Phillips</span>
+          </p>
+        </div>
       </div>
     </div>
   );
