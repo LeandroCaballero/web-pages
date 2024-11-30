@@ -2,9 +2,10 @@ import { Request, Response } from "express";
 import prisma from "../server/prisma";
 import { createCinemaSchema, editCinemaSchema } from "../schemas/Cinema";
 
-export const create = async (req: Request, res: Response) => {
+export const createCinema = async (req: Request, res: Response) => {
+  console.log("---------------", req.body);
   const result = createCinemaSchema.safeParse(req.body);
-
+  console.log(result);
   if (!result.success) {
     return res.status(400).json({
       error: "Invalid input",
@@ -18,6 +19,11 @@ export const create = async (req: Request, res: Response) => {
       data: {
         name: data.name,
         location: data.location,
+        ...(data.cities.length > 0 && {
+          cities: {
+            connect: data.cities.map((city) => ({ id: city.id })),
+          },
+        }),
       },
     });
     if (newCinema) {
@@ -29,7 +35,7 @@ export const create = async (req: Request, res: Response) => {
   }
 };
 
-export const getOne = async (req: Request, res: Response) => {
+export const getOneCinema = async (req: Request, res: Response) => {
   const { id } = req.params;
   try {
     const cinema = await prisma.cinema.findFirst({
@@ -51,7 +57,7 @@ export const getOne = async (req: Request, res: Response) => {
   }
 };
 
-export const getAll = async (req: Request, res: Response) => {
+export const getAllCinema = async (req: Request, res: Response) => {
   try {
     const cinemas = await prisma.cinema.findMany({});
     if (!cinemas) {
@@ -64,10 +70,11 @@ export const getAll = async (req: Request, res: Response) => {
   }
 };
 
-export const update = async (req: Request, res: Response) => {
+export const updateCinema = async (req: Request, res: Response) => {
+  console.log("---------------", req.body);
   const { id } = req.params;
   const result = editCinemaSchema.safeParse(req.body);
-
+  console.log("---------------", result);
   if (!result.success) {
     return res.status(400).json({
       error: "Invalid input",

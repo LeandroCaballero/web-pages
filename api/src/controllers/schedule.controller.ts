@@ -2,7 +2,7 @@ import { Request, Response } from "express";
 import prisma from "../server/prisma";
 import { createScheduleSchema, editScheduleSchema } from "../schemas/Schedule";
 
-export const create = async (req: Request, res: Response) => {
+export const createSchedule = async (req: Request, res: Response) => {
   const result = createScheduleSchema.safeParse(req.body);
 
   if (!result.success) {
@@ -30,7 +30,7 @@ export const create = async (req: Request, res: Response) => {
   }
 };
 
-export const getOne = async (req: Request, res: Response) => {
+export const getOneSchedule = async (req: Request, res: Response) => {
   const { id } = req.params;
   try {
     const schedule = await prisma.schedule.findFirst({
@@ -51,7 +51,7 @@ export const getOne = async (req: Request, res: Response) => {
   }
 };
 
-export const getAll = async (req: Request, res: Response) => {
+export const getAllSchedule = async (req: Request, res: Response) => {
   try {
     const schedules = await prisma.schedule.findMany({});
     if (!schedules) {
@@ -64,7 +64,7 @@ export const getAll = async (req: Request, res: Response) => {
   }
 };
 
-export const update = async (req: Request, res: Response) => {
+export const updateSchedule = async (req: Request, res: Response) => {
   const { id } = req.params;
   const result = editScheduleSchema.safeParse(req.body);
 

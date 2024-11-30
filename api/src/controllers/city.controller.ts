@@ -2,7 +2,7 @@ import { Request, Response } from "express";
 import prisma from "../server/prisma";
 import { createCitySchema, editCitySchema } from "../schemas/City";
 
-export const create = async (req: Request, res: Response) => {
+export const createCity = async (req: Request, res: Response) => {
   const result = createCitySchema.safeParse(req.body);
 
   if (!result.success) {
@@ -28,7 +28,7 @@ export const create = async (req: Request, res: Response) => {
   }
 };
 
-export const getOne = async (req: Request, res: Response) => {
+export const getOneCity = async (req: Request, res: Response) => {
   const { id } = req.params;
   try {
     const city = await prisma.city.findFirst({
@@ -49,7 +49,7 @@ export const getOne = async (req: Request, res: Response) => {
   }
 };
 
-export const getAll = async (req: Request, res: Response) => {
+export const getAllCity = async (req: Request, res: Response) => {
   try {
     const cities = await prisma.city.findMany({});
     if (!cities) {
@@ -62,7 +62,7 @@ export const getAll = async (req: Request, res: Response) => {
   }
 };
 
-export const update = async (req: Request, res: Response) => {
+export const updateCity = async (req: Request, res: Response) => {
   const { id } = req.params;
   const result = editCitySchema.safeParse(req.body);
 

@@ -2,7 +2,9 @@ import { Request, Response } from "express";
 import prisma from "../server/prisma";
 import { createMovieSchema, editMovieSchema } from "../schemas/Movie";
 
-export const create = async (req: Request, res: Response) => {
+export const createMovie = async (req: Request, res: Response) => {
+  console.log("req.body", req.body);
+  return;
   const result = createMovieSchema.safeParse(req.body);
 
   if (!result.success) {
@@ -13,6 +15,7 @@ export const create = async (req: Request, res: Response) => {
   }
 
   const data = result.data;
+
   try {
     const newMovie = await prisma.movie.create({
       data: {
@@ -21,15 +24,12 @@ export const create = async (req: Request, res: Response) => {
         actors: data.actors,
         director: data.director,
         genre: data.genre,
-        location: data.location,
+        location: data.location, // sacar
         duration: data.duration,
         image: data.image,
         videoImage: data.videoImage,
         videoUrl: data.videoUrl,
         cinemas: { connect: data.cinemas.map((cinema) => ({ id: cinema })) },
-        schedules: {
-          connect: data.schedules.map((schedule) => ({ id: schedule })),
-        },
       },
     });
     if (newMovie) {
@@ -41,7 +41,7 @@ export const create = async (req: Request, res: Response) => {
   }
 };
 
-export const getOne = async (req: Request, res: Response) => {
+export const getOneMovie = async (req: Request, res: Response) => {
   const { id } = req.params;
   try {
     const movie = await prisma.movie.findFirst({
@@ -63,9 +63,14 @@ export const getOne = async (req: Request, res: Response) => {
   }
 };
 
-export const getAll = async (req: Request, res: Response) => {
+export const getAllMovie = async (req: Request, res: Response) => {
   try {
-    const movies = await prisma.movie.findMany({});
+    const movies = await prisma.movie.findMany({
+      // select: {
+      //   id: true,
+      //   name: true,
+      // },
+    });
     if (!movies) {
       return res.status(404).json({ error: "Sin pelis" });
     }
@@ -76,7 +81,7 @@ export const getAll = async (req: Request, res: Response) => {
   }
 };
 
-export const update = async (req: Request, res: Response) => {
+export const updateMovie = async (req: Request, res: Response) => {
   const { id } = req.params;
   const result = editMovieSchema.safeParse(req.body);
 

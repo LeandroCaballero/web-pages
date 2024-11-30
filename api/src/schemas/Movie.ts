@@ -5,14 +5,24 @@ export const createMovieSchema = z.object({
   location: z.string().min(1),
   genre: z.string().min(1),
   director: z.string().min(1),
-  actors: z.array(z.string()).min(1),
+  actors: z.array(z.object({ name: z.string() })).min(1),
   description: z.string(),
-  image: z.string().url(),
-  videoImage: z.string().url().optional(),
+  image: z.object({
+    rawFile: z.instanceof(File),
+    src: z.string(),
+    title: z.string(),
+  }),
+  videoImage: z
+    .object({
+      rawFile: z.instanceof(File),
+      src: z.string(),
+      title: z.string(),
+    })
+    .optional(),
   videoUrl: z.string().url().optional(),
   duration: z.string().min(1),
-  schedules: z.array(z.string()).min(1),
-  cinemas: z.array(z.string()).min(1),
+  // schedules: z.array(z.string()).min(1),
+  cinemas: z.array(z.object({ id: z.string() })).min(1),
 });
 
 export const editMovieSchema = z.object({
@@ -29,4 +39,3 @@ export const editMovieSchema = z.object({
   schedules: z.array(z.string()).optional(),
   cinemas: z.array(z.string()).optional(),
 });
-
